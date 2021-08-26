@@ -45,3 +45,21 @@ window.addEventListener('scroll', () => {
   mousewheel: true,
   keyboard: true,
 });
+
+/**
+ * Scroll Reveal
+ */
+const scrollReveal = ScrollReveal({
+  origin: 'top',
+  distance: '30px',
+  duration: 1000,
+  reset: true
+});
+
+scrollReveal.reveal(`
+  #home .text, #home .image,
+  #about .text, #about .image,
+  #services header, #services .card,
+  #testimonials header, #testimonials .testimonials,
+  #contact .text, #contact .links
+`, { interval: 100});
