@@ -7,6 +7,7 @@ const links = document.querySelectorAll('nav ul li a');
 const header = document.querySelector('#header');
 const navHeight = header.offsetHeight;
 const backToTopBtn = document.querySelector('.back-to-top');
+const sections = document.querySelectorAll('main section[id]');
 
 
 /**
@@ -37,6 +38,12 @@ links.forEach((element) => {
   },
   mousewheel: true,
   keyboard: true,
+  breakpoints: {
+    767: {
+      slidesPerView: 2,
+      setWrapperSize: true,
+    }
+  }
 });
 
 /**
@@ -75,8 +82,35 @@ const revealBackToTopBtn = () => {
   ? backToTopBtn.classList.add('show')
   : backToTopBtn.classList.remove('show');
  }
+ 
+ /**
+  * Activate link in nav menu
+  */
+
+const activateMenuAtCurrentSection = () => {
+  const checkpoint = window.pageYOffset + (window.innerHeight / 8) * 4;
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute('id');
+
+    const checkpointStart = checkpoint >= sectionTop;
+    const checkpointEnd = checkpoint <= sectionTop + sectionHeight;
+
+    checkpointStart && checkpointEnd
+      ? document
+        .querySelector('nav ul li a[href*=' + sectionId + ']')
+        .classList.add('active')
+      : document
+        .querySelector('nav ul li a[href*=' + sectionId + ']')
+        .classList.remove('active');
+  })
+}
 
 window.addEventListener('scroll', () => {
   changeHeaderWhenScroll();
   revealBackToTopBtn();
+  activateMenuAtCurrentSection();
 });
+
