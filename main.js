@@ -33,3 +33,15 @@ window.addEventListener('scroll', () => {
     ? header.classList.add('scroll')
     : header.classList.remove('scroll');
 });
+
+/**
+ * Testimonials carousel
+ */
+ const swiper = new Swiper('.swiper-container', {
+  slidesPerView: 1,
+  pagination: {
+    el: '.swiper-pagination',
+  },
+  mousewheel: true,
+  keyboard: true,
+});
