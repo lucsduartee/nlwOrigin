@@ -6,6 +6,8 @@ const toggle = document.querySelectorAll('nav .toggle');
 const links = document.querySelectorAll('nav ul li a');
 const header = document.querySelector('#header');
 const navHeight = header.offsetHeight;
+const backToTopBtn = document.querySelector('.back-to-top');
+
 
 /**
  * Adding eventListeners to open and close side menu
@@ -26,15 +28,6 @@ links.forEach((element) => {
 });
 
 /**
- * Changing header when scroll page
- */
-window.addEventListener('scroll', () => {
-  window.scrollY >= navHeight
-    ? header.classList.add('scroll')
-    : header.classList.remove('scroll');
-});
-
-/**
  * Testimonials carousel
  */
  const swiper = new Swiper('.swiper-container', {
@@ -52,7 +45,7 @@ window.addEventListener('scroll', () => {
 const scrollReveal = ScrollReveal({
   origin: 'top',
   distance: '30px',
-  duration: 1000,
+  duration: 900,
   reset: true
 });
 
@@ -61,5 +54,29 @@ scrollReveal.reveal(`
   #about .text, #about .image,
   #services header, #services .card,
   #testimonials header, #testimonials .testimonials,
-  #contact .text, #contact .links
+  #contact .text, #contact .links,
+  footer .brand, footer .social
 `, { interval: 100});
+
+/**
+ * Changing header when scroll page
+ */
+ const changeHeaderWhenScroll = () => {
+  window.scrollY >= navHeight
+    ? header.classList.add('scroll')
+    : header.classList.remove('scroll');
+}
+
+/**
+ * Back to Top button
+ */
+const revealBackToTopBtn = () => {
+  window.scrollY >= 560
+  ? backToTopBtn.classList.add('show')
+  : backToTopBtn.classList.remove('show');
+ }
+
+window.addEventListener('scroll', () => {
+  changeHeaderWhenScroll();
+  revealBackToTopBtn();
+});
